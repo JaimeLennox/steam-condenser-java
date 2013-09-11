@@ -31,6 +31,8 @@ import com.github.koraktor.steamcondenser.exceptions.SteamCondenserException;
  * @author Sebastian Staudt
  */
 public class XMLData {
+  
+    private static final ThreadLocal<DocumentBuilder> localDocumentBuilder = getLocalDocumentBuilder();
 
     protected static DocumentBuilder documentBuilder;
 
@@ -50,10 +52,27 @@ public class XMLData {
     protected static DocumentBuilder getDocumentBuilder()
             throws ParserConfigurationException {
         if(documentBuilder == null) {
-            documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            DocumentBuilder result = localDocumentBuilder.get();
+            if(result == null) {
+                throw new ParserConfigurationException();
+            }
+            return result;
         }
 
         return documentBuilder;
+    }
+    
+    private static ThreadLocal<DocumentBuilder> getLocalDocumentBuilder() {
+          return new ThreadLocal<DocumentBuilder>() {
+              @Override
+              protected DocumentBuilder initialValue() {
+                  try {
+                      return DocumentBuilderFactory.newInstance().newDocumentBuilder();
+                  } catch (ParserConfigurationException e) {
+                      return null;
+                  }
+            }
+          };
     }
 
     /**
