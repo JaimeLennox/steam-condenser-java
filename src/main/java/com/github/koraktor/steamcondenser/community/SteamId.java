@@ -893,4 +893,9 @@ public class SteamId implements Comparable<SteamId> {
     public int compareTo(SteamId o) {
         return Long.compare(getSteamId64(), o.getSteamId64());
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof SteamId && compareTo((SteamId) obj) == 0;
+    }
 }
