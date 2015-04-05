@@ -28,7 +28,7 @@ import com.github.koraktor.steamcondenser.exceptions.WebApiException;
  *
  * @author Sebastian Staudt
  */
-public class SteamGame {
+public class SteamGame implements Comparable<SteamGame> {
 
     private static Map<Integer, SteamGame> games = new HashMap<Integer, SteamGame>();
 
@@ -344,4 +344,7 @@ public class SteamGame {
             .toString();
     }
 
+    public int compareTo(SteamGame o) {
+        return toString().compareToIgnoreCase(o.toString());
+    }
 }
