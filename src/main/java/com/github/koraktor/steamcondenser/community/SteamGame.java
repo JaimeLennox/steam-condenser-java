@@ -337,11 +337,7 @@ public class SteamGame implements Comparable<SteamGame> {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-            .append("appId", this.appId)
-            .append("name", this.name)
-            .append("shortName", this.shortName)
-            .toString();
+        return getName();
     }
 
     public int compareTo(SteamGame o) {
