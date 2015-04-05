@@ -32,7 +32,7 @@ import com.github.koraktor.steamcondenser.exceptions.WebApiException;
  *
  * @author Sebastian Staudt
  */
-public class SteamId {
+public class SteamId implements Comparable<SteamId> {
 
     private static final DateFormat DATE_FORMAT = DateFormat.getDateInstance(DateFormat.LONG, Locale.ENGLISH);
 
@@ -888,5 +888,9 @@ public class SteamId {
             .append("nickname", this.nickname)
             .append("online", this.isOnline())
             .toString();
+    }
+
+    public int compareTo(SteamId o) {
+        return Long.compare(getSteamId64(), o.getSteamId64());
     }
 }
